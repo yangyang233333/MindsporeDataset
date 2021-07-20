@@ -142,7 +142,7 @@ def FashionMNIST(root, usage="train", sampler=None, transform=None, download=Fal
 
 
 if __name__ == '__main__':
-    dataset_dir = "./dataset/fashion-mnist"
+    dataset_dir = "../dataset/fashion-mnist"
     mnist = FashionMNIST(dataset_dir,
                          download=True,
                          sampler=ds.SequentialSampler(0, 10),
