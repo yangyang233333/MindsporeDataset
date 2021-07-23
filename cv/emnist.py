@@ -43,6 +43,6 @@ def emnist():
 if __name__ == '__main__':
     os.system("cmd")
     os.system("wget -P ./dataset/test http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz")
-    pass
+
 
 
