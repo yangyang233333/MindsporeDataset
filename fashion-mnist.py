@@ -67,6 +67,7 @@ class _FashionMNIST:
         img_num = head[1]  # 图片数
         width = head[2]  # 宽度
         height = head[3]  # 高度
+
         bits = img_num * width * height  # data一共有60000*28*28个像素值
         bits_string = '>' + str(bits) + 'B'  # fmt格式：'>47040000B'
         imgs = struct.unpack_from(bits_string, file_content, offset)  # 取data数据，返回一个元组
