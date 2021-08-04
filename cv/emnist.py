@@ -9,12 +9,14 @@ import mindspore.dataset.transforms.c_transforms as ctrans
 import mindspore.common.dtype as mstype
 import glob
 import cv2
+import gzip
+import shutil
 
 # 数据集下载链接
 resources1 = 'https://www.itl.nist.gov/iaui/vip/cs_links/EMNIST/gzip.zip'
 
 # 数据集内的所有文件
-resources2 = ['emnist-balanced-mapping.tx',
+resources2 = ['emnist-balanced-mapping.txt',
               'emnist-balanced-test-images-idx3-ubyte.gz',
               'emnist-balanced-test-labels-idx1-ubyte.gz',
               'emnist-balanced-train-images-idx3-ubyte.gz',
@@ -54,17 +56,24 @@ resources2 = ['emnist-balanced-mapping.tx',
 class _EMNIST:
     """加载EMIST的辅助类"""
 
-    def __init__(self, root="./dataset/emnist", is_train=True, download=False):
+    def __init__(self, root="./dataset/emnist", subdataset="balanced", is_train=True, download=False):
         """
-        :param root:
+        :param root:数据集文件所在的目录
+        :param subdataset: EMNIST有6个子数据集，使用此参数来指定训练/测试哪一个，balanced，By_Merge，By_Class，Digits，Letters，MNIST
         :param is_train:
         :param download:
         """
+
         self.root = root
+        self.subdataset = subdataset
 
         # 检查数据集文件是否完整
         self.check_exist()
 
+        # 解压所选择的子数据集
+        self.ungz()
+
+        # 开始读取数据集
         if is_train:
             self.data = None
             self.label = None
@@ -79,25 +88,53 @@ class _EMNIST:
         pass
 
     def read_image(self):
+        """读取数据集
+            数据集名字:
+                file_name (string): file path of *-images-idx3-ubyte.
+            数据集的存储结构:
+                file format
+                [offset] [type]          [value]          [description]
+                0000     32 bit integer  0x00000803(2051) magic number
+                0004     32 bit integer  60000            number of images
+                0008     32 bit integer  28               number of rows
+                0012     32 bit integer  28               number of columns
+                0016     unsigned byte   ??               pixel
+                0017     unsigned byte   ??               pixel
+                ........
+                xxxx     unsigned byte   ??               pixel
+        """
 
-        pass
 
     def read_label(self):
-
-        pass
+        """读取数据集标签"""
 
     def check_exist(self):
         """检查数据集文件是否完整"""
         for x in resources2:
             temp_path = os.path.join(self.root, x)
             if not os.path.exists(temp_path):
-                print(f"文件{temp_path}有缺失, 请去https://www.itl.nist.gov/iaui/vip/cs_links/EMNIST/gzip.zip下载数据集并且解压好")
+                print(f"文件{temp_path}有缺失, 请去https://www.itl.nist.gov/iaui/vip/cs_links/EMNIST/emnist.zip下载数据集并且解压好")
                 raise RuntimeError()
 
-    # def download(self):
-    #     """下载数据集"""
-    #     # Win10 和 Linux的下载方法不一样，有点麻烦，暂时搁置
-    #     raise RuntimeError("请去https://www.itl.nist.gov/iaui/vip/cs_links/EMNIST/gzip.zip下载数据集并且解压好")
+    def ungz(self):
+        """解压gz文件"""
+        # 创建解压后文件的保存目录
+        if not os.path.exists(self.root + "/ungziped"):
+            os.mkdir(self.root + "/ungziped")
+        file_list = glob.glob(self.root + "/*")
+        for file in file_list:
+
+            # 将子数据集的gz文件解压到/ungziped
+            if self.subdataset in file and ".gz" in file:
+                new_file = os.path.join(self.root, "ungziped", file.split('\\')[-1].replace(".gz", ""))
+                ungz_file = gzip.GzipFile(file)  # 解压文件
+                open(new_file, 'wb+').write(ungz_file.read())  # 将解压后的文件对象写入新文件
+
+            # 将子数据集的txt文件复制到到/ungziped
+            elif self.subdataset in file and ".txt" in file:
+                new_file = os.path.join(self.root, "ungziped", file.split('\\')[-1])
+                shutil.copyfile(file, new_file)
+        print("文件解压完成！")
 
 
 def emnist():
@@ -105,24 +142,5 @@ def emnist():
 
 
 if __name__ == '__main__':
-    base_path = r'E:\MindsporeVision\gzip'
-
-    file_name = base_path + r'\emnist-balanced-test-labels-idx1-ubyte.gz'
-    file_handle = open(file_name, "rb")  # 以二进制打开文档
-    file_content = file_handle.read()  # 读取到缓冲区中
-    head = struct.unpack_from('>II', file_content, 0)  # 取前2个整数，返回一个元组
-    # struct.unpack()
-
-    offset = struct.calcsize('>IIII')
-    # img_num = head[1]  # 图片数
-    # width = head[2]  # 宽度
-    # height = head[3]  # 高度
-    print(head)
-
-    # content = struct.unpack_from('>784B', file_content, offset)
-    # imgs_array = np.array(content).reshape((1, 28, 28)).transpose((1, 2, 0)) / 255
-    # print(imgs_array.shape)
-    # cv2.imshow('x', imgs_array)
-    # cv2.waitKey(0)
-    #
-    # print(imgs_array)
+    root = 'E:\MindsporeVision\dataset\emnist'
+    data = _EMNIST(root=root, subdataset="balanced")

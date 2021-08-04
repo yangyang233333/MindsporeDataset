@@ -25,7 +25,7 @@ class _FashionMNIST:
 
         if self.check_exist(root, [res.split("/")[-1] for res in resources1]):
             for res in resources1:
-                os.system("gzip -d " + root + "/" + res.split("/")[-1])
+                os.system("emnist -d " + root + "/" + res.split("/")[-1])
         elif self.check_exist(root, resources2):
             pass
         else:
