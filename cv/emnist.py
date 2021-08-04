@@ -79,13 +79,16 @@ class _EMNIST:
             self.label = self.read_label(
                 os.path.join(self.root, 'unziped', f'emnist-{self.dataset_name}-train-labels-idx1-ubyte'))
         else:
-            self.data = None
-            self.label = None
+            self.data = self.read_image(
+                os.path.join(self.root, 'unziped', f'emnist-{self.dataset_name}-test-images-idx3-ubyte'))
+            self.label = self.read_label(
+                os.path.join(self.root, 'unziped', f'emnist-{self.dataset_name}-test-labels-idx1-ubyte'))
 
     def __getitem__(self, item):
         return self.data[item], self.label[item]
 
     def __len__(self):
+        print(f"长度：{len(self.label)}")
         return len(self.label)
 
     def read_image(self, filename: str) -> np.ndarray:
@@ -115,9 +118,6 @@ class _EMNIST:
         bits_string = '>' + str(bits) + 'B'  # fmt格式：'>????B'
         imgs = struct.unpack_from(bits_string, file_content, offset)  # 取data数据，返回一个元组
         imgs_array = np.array(imgs).reshape((img_num, width, height))  # 最后将读取的数据reshape成 (图片数，宽，高)的三维数组
-        # print(imgs_array[1].shape)
-        # cv2.imshow('00', imgs_array[2551]/255)
-        # cv2.waitKey(0)
         return imgs_array
 
     def read_label(self, filename):
@@ -128,7 +128,7 @@ class _EMNIST:
                 file format
                 [offset] [type]          [value]          [description]
                 0000     32 bit integer  0x00000801(2049) magic number (MSB first)
-                0004     32 bit integer  60000            number of items
+                0004     32 bit integer  112800           number of items
                 0008     unsigned byte   ??               label
                 0009     unsigned byte   ??               label
                 ........
@@ -140,8 +140,6 @@ class _EMNIST:
         label_num = head[1]  # label数
         bits_string = '>' + str(label_num) + 'B'  # fmt格式：'>47040000B'
         label = struct.unpack_from(bits_string, file_content, offset)  # 取data数据，返回一个元组
-        # x = np.array(label)[:500]
-        # print(np.max(x))
         return np.array(label)
 
     def check_exist(self):
@@ -179,7 +177,7 @@ def emnist():
 
 if __name__ == '__main__':
     root = 'E:\MindsporeVision\dataset\emnist'
-    data = _EMNIST(root=root, is_train=True)
+    data = _EMNIST(root=root, is_train=False)
     dataset = ds.GeneratorDataset(data, column_names=["image", "label"])
 
     for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
