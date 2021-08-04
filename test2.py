@@ -6,5 +6,5 @@ import gzip, os
 #
 # print(ungz_file)
 
-if not os.path.exists("./ungziped"):
-    os.mkdir("./ungziped")
+if not os.path.exists("./unziped"):
+    os.mkdir("./unziped")
