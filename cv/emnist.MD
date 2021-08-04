@@ -10,7 +10,7 @@
     
     **其中数字0-9对应标签为0-9, 字母A-Z对应标签为10-35, 字母a-z对应标签为36-61.**
 
-2. 数据存储结构如下所示：
+2. 数据存储大致结构如下所示：
 ```
 TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
 [offset] [type]          [value]          [description]
@@ -34,5 +34,5 @@ TRAINING SET IMAGE FILE (train-images-idx3-ubyte):
 xxxx     unsigned byte   ??               pixel
 ```
 
-
-关于此数据集的详细信息请参考：https://blog.csdn.net/Chris_zhangrx/article/details/86516331
+[链接](https://blog.csdn.net/Chris_zhangrx/article/details/86516331)
+关于此数据集的详细信息请参考此[链接].
