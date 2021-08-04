@@ -34,5 +34,4 @@ TRAINING SET IMAGE FILE (train-images-idx3-ubyte):
 xxxx     unsigned byte   ??               pixel
 ```
 
-[链接](https://blog.csdn.net/Chris_zhangrx/article/details/86516331)
-关于此数据集的详细信息请参考此[链接].
+关于此数据集的详细信息请参考此[链接](https://blog.csdn.net/Chris_zhangrx/article/details/86516331).
