@@ -10,7 +10,42 @@
     
     **其中数字0-9对应标签为0-9, 字母A-Z对应标签为10-35, 字母a-z对应标签为36-61.**
 
-2. 数据存储大致结构如下所示：
+2. 使用方法
+```
+    """ 用法示例 """
+
+    # 填写数据集的上级目录
+    root = 'E:\MindsporeVision\dataset\emnist'
+
+    # 实例化
+    dataset = _EMNIST(root=root, is_train=False)
+
+    # 设置一些参数，如shuffle、num_parallel_workers等等
+    dataset = ds.GeneratorDataset(dataset,
+                                  column_names=["image", "label"],
+                                  num_parallel_workers=1,
+                                  num_samples=None,
+                                  shuffle=False)
+
+    # 做一些数据增强，如果不需要增强可以把这段代码注释掉
+    # 首先把数据集设置为uint8，因为map只支持uint8
+    dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+    # 此处填写所需要的数据增强算子
+    transform = [cvision.Resize(36), cvision.RandomCrop(28)]
+    dataset = dataset.map(operations=transform, input_columns="image")
+
+    # 显示10张图片
+    for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
+        if index >= 10:
+            break
+        print(data["image"].shape, data["label"])
+        plt.subplot(2, 5, index + 1)
+        plt.imshow(data["image"].squeeze(), cmap=plt.cm.gray)
+        plt.title(data["label"])
+    plt.show()
+```
+
+3. 数据存储大致结构如下所示：
 ```
 TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
 [offset] [type]          [value]          [description]

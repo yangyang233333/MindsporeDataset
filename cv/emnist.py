@@ -70,9 +70,9 @@ class _EMNIST:
         self.check_exist()
 
         # 解压所选择的子数据集
-        # self.unzip()
+        self.unzip()
 
-        # 开始读取数据集
+        # 读取数据集
         if is_train:
             self.data = self.read_image(
                 os.path.join(self.root, 'unziped', f'emnist-{self.dataset_name}-train-images-idx3-ubyte'))
@@ -88,7 +88,6 @@ class _EMNIST:
         return self.data[item], self.label[item]
 
     def __len__(self):
-        print(f"长度：{len(self.label)}")
         return len(self.label)
 
     def read_image(self, filename: str) -> np.ndarray:
@@ -170,21 +169,63 @@ class _EMNIST:
                 shutil.copyfile(filename, new_file)
         print("文件解压完成！")
 
-
-def emnist():
-    pass
+# 暂时不想继续对EMNIST类在进行一次封装
+# def EMNIST(root, is_train=True, dataset_name='balanced', sampler=None, transform=None, download=False):
+#     """
+#     :param root: 数据集文件所在的目录
+#     :param is_train:
+#     :param dataset_name: EMNIST有6个子数据集，使用此参数来指定训练/测试哪一个，balanced，By_Merge，By_Class，Digits，Letters，MNIST
+#     :param sampler:
+#     :param transform:
+#     :param download:
+#     :return:
+#     """
+#     dataset = _EMNIST(root=root, dataset_name=dataset_name, is_train=is_train, download=download)
+#     dataset = ds.GeneratorDataset(dataset,
+#                                   column_names=["image", "label"],
+#                                   sampler=sampler,
+#                                   num_parallel_workers=4)
+#
+#     if transform:
+#         if not isinstance(transform, list):
+#             transform = [transform]
+#         # map only supports image with type uint8 now
+#         dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+#         dataset = dataset.map(operations=transform, input_columns="image")
+#     return dataset
 
 
 if __name__ == '__main__':
-    root = 'E:\MindsporeVision\dataset\emnist'
-    data = _EMNIST(root=root, is_train=False)
-    dataset = ds.GeneratorDataset(data, column_names=["image", "label"])
+    """ 用法示例 """
 
+    # 填写数据集的上级目录
+    root = 'E:\MindsporeVision\dataset\emnist'
+
+    # 实例化
+    dataset = _EMNIST(root=root, is_train=False)
+
+    # 设置一些参数，如shuffle、num_parallel_workers等等
+    dataset = ds.GeneratorDataset(dataset,
+                                  column_names=["image", "label"],
+                                  num_parallel_workers=1,
+                                  num_samples=None,
+                                  shuffle=False)
+
+    # 做一些数据增强，如果不需要增强可以把这段代码注释掉
+    # 首先把数据集设置为uint8，因为map只支持uint8
+    dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+    # 此处填写所需要的数据增强算子
+    transform = [cvision.Resize(36), cvision.RandomCrop(28)]
+    dataset = dataset.map(operations=transform, input_columns="image")
+
+    # 显示10张图片
     for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
         if index >= 10:
             break
         print(data["image"].shape, data["label"])
         plt.subplot(2, 5, index + 1)
-        plt.imshow(data["image"].astype(np.int8).squeeze(), cmap=plt.cm.gray)
+        plt.imshow(data["image"].squeeze(), cmap=plt.cm.gray)
         plt.title(data["label"])
     plt.show()
+
+
