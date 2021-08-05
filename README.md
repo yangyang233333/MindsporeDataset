@@ -1,7 +1,9 @@
 # MindSpore dataset hub
 This is a repo for MindSpore dataset hub
 
-# 当前支持的数据集类别【Chrome浏览器中使用Ctrl+F可以快速查找数据集】
+# 当前支持的数据集类别
+Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
+
 + CV
     + **emnist**: [介绍](./cv/emnist.md)、 [代码](./cv/emnist.py)
     + **kmnist**: [介绍](./cv/kmnist.md)、 [代码](./cv/kmnist.py)
