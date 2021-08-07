@@ -7,21 +7,21 @@ import mindspore.dataset.vision.c_transforms as cvision
 import mindspore.dataset.transforms.c_transforms as ctrans
 import mindspore.common.dtype as mstype
 
+# 数据集下载链接
 resources1 = ["http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz",
               "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz",
               "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz",
               "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz"]
 
+# 数据集文件
 resources2 = ["t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte", "train-images-idx3-ubyte", "train-labels-idx1-ubyte"]
 
 
 class _FashionMNIST:
     """ Helper class for Fashion- MNIST Dataset. """
 
-    def __init__(self, root, usage="train", download=False):
+    def __init__(self, root, is_train=True, download=False):
         self.root = root
-        if download:
-            self.download()
 
         if self.check_exist(root, [res.split("/")[-1] for res in resources1]):
             for res in resources1:
@@ -31,7 +31,7 @@ class _FashionMNIST:
         else:
             raise RuntimeError('Dataset not found. You can use download=True to download it')
 
-        if usage == "train":
+        if is_train:
             self.data = self.read_image(os.path.join(root, "train-images-idx3-ubyte"))
             self.label = self.read_label(os.path.join(root, "train-labels-idx1-ubyte"))
         else:
@@ -104,15 +104,16 @@ class _FashionMNIST:
                 return False
         return True
 
-    def download(self):
-        if self.check_exist(self.root, [res.split("/")[-1] for res in resources1]):
-            return
-        if self.check_exist(self.root, resources2):
-            return
-        os.makedirs(self.root, exist_ok=True)
-        for res in resources1:
-            if not os.path.exists(os.path.join(self.root, res.split("/")[-1])):
-                os.system("wget -P " + self.root + " " + res)
+    # win10不支持wget，所以先注释掉再说
+    # def download(self):
+    #     if self.check_exist(self.root, [res.split("/")[-1] for res in resources1]):
+    #         return
+    #     if self.check_exist(self.root, resources2):
+    #         return
+    #     os.makedirs(self.root, exist_ok=True)
+    #     for res in resources1:
+    #         if not os.path.exists(os.path.join(self.root, res.split("/")[-1])):
+    #             os.system("wget -P " + self.root + " " + res)
 
 
 def FashionMNIST(root, usage="train", sampler=None, transform=None, download=False):
@@ -143,8 +144,24 @@ def FashionMNIST(root, usage="train", sampler=None, transform=None, download=Fal
 
 
 if __name__ == '__main__':
-    dataset_dir = "dataset/fashion-mnist"
-    mnist = FashionMNIST(dataset_dir,
+    """ 用法示例 """
+
+    # 填写数据集的上级目录
+    root = r'E:\MindsporeVision\dataset\fashion-mnist'
+
+    # dataset_dir = "dataset/fashion-mnist"
+    fashion_mnist = _FashionMNIST(root, usage, download)
+    dataset = ds.GeneratorDataset(fashion_mnist, column_names=["image", "label"], num_parallel_workers=4,
+                                  sampler=sampler)
+
+    if transform:
+        if not isinstance(transform, list):
+            transform = [transform]
+        # map only supports image with type uint8 now
+        dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+        dataset = dataset.map(operations=transform, input_columns="image")
+
+    mnist = FashionMNIST(root,
                          download=True,
                          sampler=ds.SequentialSampler(0, 10),
                          transform=[cvision.Resize(36), cvision.RandomCrop(28)])
