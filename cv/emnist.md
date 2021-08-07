@@ -43,7 +43,7 @@
         plt.title(data["label"])
     plt.show()
 ```
-数据集的目录结构如下所示（如果目录结构和下面不一样，脚本将无法正确运行）：
+3. 数据集的目录结构如下所示（如果目录结构和下面不一样，脚本将无法正确运行）：
 ```
     emnist /
         emnist - mnist - train - labels - idx1 - ubyte.gz
@@ -77,7 +77,9 @@
         emnist - byclass - mapping.txt
         emnist - balanced - train - labels - idx1 - ubyte.gz
 ```
-3. 数据存储大致结构如下所示：
+
+4. 数据存储大致结构如下所示：
+
 ```
 TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
 [offset] [type]          [value]          [description]
