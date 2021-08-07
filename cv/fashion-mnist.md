@@ -6,7 +6,9 @@
 划分，28x28 的灰度图片。你可以直接用它来测试你的机器学习和深度学习算法性能，
 且不需要改动任何的代码。
 数据集预览如下所示：
+
 ![Fashion-mnist预览](../doc/img/fashion-mnist-sprite.png)
+
 数据集文件如下所示：
 
 | Name | Content | Examples | Size | Link | MD5 Checksum|
