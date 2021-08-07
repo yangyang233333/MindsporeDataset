@@ -1,5 +1,5 @@
 # EMNIST数据集文件介绍
-1. EMNIST是对MNIST的扩展，内容主要为手写字母及数字，分为以下6类：
+1. 数据集基本介绍：EMNIST是对MNIST的扩展，内容主要为手写字母及数字，分为以下6类：
 
     + By_Class ： 共 814255 张，62 类，包含所有字母和数字，与 NIST 相比重新划分类训练集与测试机的图片数
     + By_Merge： 共 814255 张，47 类，删除了一些容易混淆的字母数字， 与 NIST 相比重新划分类训练集与测试机的图片数
@@ -13,7 +13,7 @@
 ```
     """ 用法示例 """
 
-    # 填写数据集的上级目录
+    # 此处填写数据集的上级目录
     root = 'E:\MindsporeVision\dataset\emnist'
 
     # 实例化
@@ -43,7 +43,40 @@
         plt.title(data["label"])
     plt.show()
 ```
-
+该目录结构如下所示：
+```
+    emnist /
+        emnist - mnist - train - labels - idx1 - ubyte.gz
+        emnist - mnist - train - images - idx3 - ubyte.gz
+        emnist - mnist - test - labels - idx1 - ubyte.gz
+        emnist - mnist - test - images - idx3 - ubyte.gz
+        emnist - mnist - mapping.txt
+        emnist - letters - train - labels - idx1 - ubyte.gz
+        emnist - letters - train - images - idx3 - ubyte.gz
+        emnist - letters - test - labels - idx1 - ubyte.gz
+        emnist - letters - test - images - idx3 - ubyte.gz
+        emnist - letters - mapping.txt
+        emnist - digits - train - labels - idx1 - ubyte.gz
+        emnist - digits - train - images - idx3 - ubyte.gz
+        emnist - digits - test - labels - idx1 - ubyte.gz
+        emnist - digits - test - images - idx3 - ubyte.gz
+        emnist - digits - mapping.txt
+        emnist - balanced - mapping.txt
+        emnist - balanced - test - images - idx3 - ubyte.gz
+        emnist - balanced - test - labels - idx1 - ubyte.gz
+        emnist - balanced - train - images - idx3 - ubyte.gz
+        emnist - byclass - test - images - idx3 - ubyte.gz
+        emnist - byclass - train - images - idx3 - ubyte.gz
+        emnist - byclass - train - labels - idx1 - ubyte.gz
+        emnist - bymerge - test - images - idx3 - ubyte.gz
+        emnist - bymerge - train - images - idx3 - ubyte.gz
+        emnist - bymerge - train - labels - idx1 - ubyte.gz
+        emnist - bymerge - test - labels - idx1 - ubyte.gz
+        emnist - bymerge - mapping.txt
+        emnist - byclass - test - labels - idx1 - ubyte.gz
+        emnist - byclass - mapping.txt
+        emnist - balanced - train - labels - idx1 - ubyte.gz
+```
 3. 数据存储大致结构如下所示：
 ```
 TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
