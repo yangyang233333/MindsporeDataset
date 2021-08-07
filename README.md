@@ -1,21 +1,20 @@
 # MindSpore dataset hub
 This is a repo for MindSpore dataset hub
 
-# µ±Ç°Ö§³ÖµÄÊı¾İ¼¯Àà±ğ
-Tips£ºChromeä¯ÀÀÆ÷ÖĞÊ¹ÓÃCtrl+F¿ÉÒÔ¿ìËÙ²éÕÒÊı¾İ¼¯.
+# å½“å‰æ”¯æŒçš„æ•°æ®é›†ç±»åˆ«
+Tipsï¼šChromeæµè§ˆå™¨ä¸­ä½¿ç”¨Ctrl+Få¯ä»¥å¿«é€ŸæŸ¥æ‰¾æ•°æ®é›†.
 
 + CV
-    + **emnist**: [½éÉÜ](./cv/emnist.md)¡¢ [´úÂë](./cv/emnist.py)
-    + **kmnist**: [½éÉÜ](./cv/kmnist.md)¡¢ [´úÂë](./cv/kmnist.py)
-    + **cub200-2011**: [½éÉÜ](./cv/cub200_2011.md)¡¢ [´úÂë](./cv/cub200_2011.py)
-    + **fashion-mnist**: [½éÉÜ](./cv/fashion-mnist.md)¡¢ [´úÂë](./cv/fashion-mnist.py)
-    + []()
+    + **emnist**: [ä»‹ç»](./cv/emnist.md)ã€ [ä»£ç ](./cv/emnist.py)
+    + **kmnist**: [ä»‹ç»](./cv/kmnist.md)ã€ [ä»£ç ](./cv/kmnist.py)
+    + **fashion-mnist**: [ä»‹ç»](./cv/fashion-mnist.md)ã€ [ä»£ç ](./cv/fashion-mnist.py)
+    + **cub200-2011**: [ä»‹ç»](./cv/cub200_2011.md)ã€ [ä»£ç ](./cv/cub200_2011.py)
 + to-do list
-    + **Set5**: [½éÉÜ](./cv/a.md)¡¢ [´úÂë](./cv/a.py)
-    + **Set14**: [½éÉÜ](./cv/a.md)¡¢ [´úÂë](./cv/a.py)
-    + **BSD100**: [½éÉÜ](./cv/a.md)¡¢ [´úÂë](./cv/a.py)
-    + **Urban100**: [½éÉÜ](./cv/a.md)¡¢ [´úÂë](./cv/a.py)
-    + **DIV2K**: [½éÉÜ](./cv/a.md)¡¢ [´úÂë](./cv/a.py)
+    + **Set5**: [ä»‹ç»](./cv/a.md)ã€ [ä»£ç ](./cv/a.py)
+    + **Set14**: [ä»‹ç»](./cv/a.md)ã€ [ä»£ç ](./cv/a.py)
+    + **BSD100**: [ä»‹ç»](./cv/a.md)ã€ [ä»£ç ](./cv/a.py)
+    + **Urban100**: [ä»‹ç»](./cv/a.md)ã€ [ä»£ç ](./cv/a.py)
+    + **DIV2K**: [ä»‹ç»](./cv/a.md)ã€ [ä»£ç ](./cv/a.py)
 
 # Contributor
 Luoyang, Qianyangyang
