@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import os
 import numpy as np
 import struct
@@ -147,7 +148,7 @@ class _EMNIST:
         for x in resources2:
             temp_path = os.path.join(self.root, x)
             if not os.path.exists(temp_path):
-                print(f"文件{temp_path}有缺失, 请去https://www.itl.nist.gov/iaui/vip/cs_links/EMNIST/emnist.zip下载数据集并且解压好")
+                print(f"文件{temp_path}有缺失, 请去{resources1}下载数据集并且解压好")
                 raise RuntimeError()
 
     def unzip(self):

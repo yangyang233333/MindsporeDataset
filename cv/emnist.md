@@ -43,7 +43,7 @@
         plt.title(data["label"])
     plt.show()
 ```
-该目录结构如下所示：
+数据集的目录结构如下所示（如果目录结构和下面不一样，脚本将无法正确运行）：
 ```
     emnist /
         emnist - mnist - train - labels - idx1 - ubyte.gz
