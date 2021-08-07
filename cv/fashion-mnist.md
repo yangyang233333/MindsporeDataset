@@ -1,6 +1,7 @@
 # Fashion-mnist数据集介绍
 
 1. 数据集基本介绍
+
 | Name | Content | Examples | Size | Link | MD5 Checksum|
 | --- | --- |--- | --- |--- |--- |
 | `train-images-idx3-ubyte.gz`  | training set images  | 60,000|26 MBytes | [Download](http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz)|`8d4fb7e6c68d591d4c3dfef9ec88bf0d`|
