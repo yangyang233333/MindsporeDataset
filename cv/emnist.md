@@ -78,7 +78,7 @@
         emnist - balanced - train - labels - idx1 - ubyte.gz
 ```
 
-4. 数据存储大致结构如下所示：
+4. 数据集存储大致结构如下所示（本部分一般不需要看）：
 
 ```
 TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
