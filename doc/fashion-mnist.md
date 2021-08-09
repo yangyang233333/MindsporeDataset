@@ -19,9 +19,48 @@
 | `t10k-labels-idx1-ubyte.gz`  | 测试集标签  | 10,000| 5.1 KBytes | [Download](http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz)|`bb300cfdad3c16e7a12a480ee83cd310`|
 
 2. 使用方法
+```
+    """ 用法示例 """
 
+    # 填写数据集的上级目录
+    root = r'E:\MindsporeVision\dataset\fashion-mnist'
 
-3. 数据集目录结构
+    # 实例化
+    # 注意：返回图片为HWC格式，因为map只支持HWC；并且图片数据为uint8，即0-255，
+    fashion_mnist = _FashionMNIST(root, is_train=True)
 
+    # 设置一些参数，如shuffle、num_parallel_workers等等
+    dataset = ds.GeneratorDataset(fashion_mnist,
+                                  column_names=["image", "label"],
+                                  num_parallel_workers=1,
+                                  shuffle=False,
+                                  sampler=None)
+
+    # 做一些数据增强，如果不需要增强可以把这段代码注释掉
+    # 首先把数据集设置为uint8，因为map只支持uint8
+    dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+    # 此处填写所需要的数据增强算子
+    transform = [cvision.Resize(28), cvision.RandomCrop(28)]
+    dataset = dataset.map(operations=transform, input_columns="image")
+
+    # 显示10张图片
+    for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
+        if index >= 10:
+            break
+        print(data["image"].shape, data["label"])
+        plt.subplot(2, 5, index + 1)
+        plt.imshow(data["image"].squeeze(), cmap=plt.cm.gray)
+        plt.title(data["label"])
+    plt.show()
+```
+
+3. 数据集目录结构（如果目录结构和下面不一样，脚本将无法正确运行）
+```
+fashion-mnist/
+    t10k-labels-idx1-ubyte
+    train-labels-idx1-ubyte
+    train-images-idx3-ubyte
+    t10k-images-idx3-ubyte
+```
 
 

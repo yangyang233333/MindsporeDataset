@@ -20,29 +20,30 @@ resources2 = ["t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte", "train-images-
 class _FashionMNIST:
     """ Helper class for Fashion- MNIST Dataset. """
 
-    def __init__(self, root, is_train=True, download=False):
+    def __init__(self, root, is_train=True):
+        """
+
+        :param root:
+        :param is_train:
+        """
         self.root = root
 
-        if self.check_exist(root, [res.split("/")[-1] for res in resources1]):
-            for res in resources1:
-                os.system("emnist -d " + root + "/" + res.split("/")[-1])
-        elif self.check_exist(root, resources2):
-            pass
-        else:
-            raise RuntimeError('Dataset not found. You can use download=True to download it')
+        # 检查数据集是否完整
+        self.check_exist()
 
+        # 读取训练集/测试集
         if is_train:
-            self.data = self.read_image(os.path.join(root, "train-images-idx3-ubyte"))
-            self.label = self.read_label(os.path.join(root, "train-labels-idx1-ubyte"))
+            self.data = self.read_image(os.path.join(self.root, "train-images-idx3-ubyte"))
+            self.label = self.read_label(os.path.join(self.root, "train-labels-idx1-ubyte"))
         else:
-            self.data = self.read_image(os.path.join(root, "t10k-images-idx3-ubyte"))
-            self.label = self.read_label(os.path.join(root, "t10k-labels-idx1-ubyte"))
+            self.data = self.read_image(os.path.join(self.root, "t10k-images-idx3-ubyte"))
+            self.label = self.read_label(os.path.join(self.root, "t10k-labels-idx1-ubyte"))
 
-    def __getitem__(self, index):
-        return self.data[index], self.label[index]
+    def __getitem__(self, item):
+        return self.data[item], self.label[item]
 
     def __len__(self):
-        return len(self.data)
+        return len(self.label)
 
     def read_image(self, file_name):
         """ read image binary file.
@@ -98,11 +99,15 @@ class _FashionMNIST:
         label = struct.unpack_from(bits_string, file_content, offset)  # 取data数据，返回一个元组
         return np.array(label)
 
-    def check_exist(self, rt_path, resources):
-        for res in resources:
-            if not os.path.exists(os.path.join(rt_path, res)):
-                return False
-        return True
+    def check_exist(self):
+        """检查数据集文件是否完整"""
+        for x in resources2:
+            # print(x)
+            temp_path = os.path.join(self.root, x)
+            # print(temp_path)
+            if not os.path.exists(temp_path):
+                print(f"文件{temp_path}有缺失, 请去{resources1}下载数据集并且解压好")
+                raise RuntimeError()
 
     # win10不支持wget，所以先注释掉再说
     # def download(self):
@@ -149,25 +154,28 @@ if __name__ == '__main__':
     # 填写数据集的上级目录
     root = r'E:\MindsporeVision\dataset\fashion-mnist'
 
-    # dataset_dir = "dataset/fashion-mnist"
-    fashion_mnist = _FashionMNIST(root, usage, download)
-    dataset = ds.GeneratorDataset(fashion_mnist, column_names=["image", "label"], num_parallel_workers=4,
-                                  sampler=sampler)
+    # 实例化
+    # 注意：返回图片为HWC格式，因为map只支持HWC；并且图片数据为uint8，即0-255，
+    fashion_mnist = _FashionMNIST(root, is_train=True)
 
-    if transform:
-        if not isinstance(transform, list):
-            transform = [transform]
-        # map only supports image with type uint8 now
-        dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
-        dataset = dataset.map(operations=transform, input_columns="image")
+    # 设置一些参数，如shuffle、num_parallel_workers等等
+    dataset = ds.GeneratorDataset(fashion_mnist,
+                                  column_names=["image", "label"],
+                                  num_parallel_workers=1,
+                                  shuffle=False,
+                                  sampler=None)
 
-    mnist = FashionMNIST(root,
-                         download=True,
-                         sampler=ds.SequentialSampler(0, 10),
-                         transform=[cvision.Resize(36), cvision.RandomCrop(28)])
+    # 做一些数据增强，如果不需要增强可以把这段代码注释掉
+    # 首先把数据集设置为uint8，因为map只支持uint8
+    dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+    # 此处填写所需要的数据增强算子
+    transform = [cvision.Resize(28), cvision.RandomCrop(28)]
+    dataset = dataset.map(operations=transform, input_columns="image")
 
-    # To see what samples do we get from dataset
-    for index, data in enumerate(mnist.create_dict_iterator(output_numpy=True)):
+    # 显示10张图片
+    for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
+        if index >= 10:
+            break
         print(data["image"].shape, data["label"])
         plt.subplot(2, 5, index + 1)
         plt.imshow(data["image"].squeeze(), cmap=plt.cm.gray)
