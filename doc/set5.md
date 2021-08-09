@@ -1,6 +1,6 @@
 # Set5 数据集介绍
 
-1. Set5数据集于2012年提出，常用于超分辨相关研究。该数据集一共包含5张图像，一般作为超分模型的测试指标，其中一张图像如下图所示：
+1. Set5数据集于BMVC 2012年提出，常用于超分辨相关研究。该数据集一共包含5张图像，一般作为超分模型的测试指标（一般使用PSNR/SSIM），其中一张图像如下图所示：
 
 ![Set5_baby.png](img/set5_baby.png)
 
@@ -53,4 +53,4 @@ Set5/
     image_SRF_2
 ```
 
-
+4. 关于该数据集的详细信息，请参考：http://people.rennes.inria.fr/Aline.Roumy/results/SR_BMVC12.html

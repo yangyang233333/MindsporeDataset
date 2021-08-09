@@ -17,7 +17,7 @@ resources1 = 'http://people.rennes.inria.fr/Aline.Roumy/results/SR_BMVC12.html'
 resources2 = []
 
 
-class Set5:
+class Set14:
 
     def __init__(self, root, scale=2, is_train=False):
         """"""
@@ -89,10 +89,10 @@ if __name__ == '__main__':
     """ 用法示例 """
 
     # 填写数据集的上级目录
-    root = r'E:\MindsporeVision\dataset\Set5'
+    root = r'E:\MindsporeVision\dataset\Set14'
 
     # 实例化
-    dataset = Set5(root, scale=2, is_train=False)
+    dataset = Set14(root, scale=2, is_train=False)
 
     # 设置一些参数，如shuffle、num_parallel_workers等等
     dataset = ds.GeneratorDataset(dataset,
@@ -112,14 +112,17 @@ if __name__ == '__main__':
     # dataset = dataset.map(operations=transform, input_columns="image")
     # dataset = dataset.map(operations=transform, input_columns="label")
 
-    # 显示图片(这个数据集只有5个图)
+    # 显示前5个图片(这个数据集只有14个图)
     for index, data in enumerate(dataset.create_dict_iterator(output_numpy=True)):
+        if index >= 5:
+            break
+        print(index)
         print(data["image"].shape, data["label"].shape)
-        plt.subplot(2, 5, index + 1)
+        plt.subplot(2, 5, index+1)
         plt.imshow(data["image"].squeeze())
         plt.title("data")
 
-        plt.subplot(2, 5, index + 1 + 5)
+        plt.subplot(2, 5, index +1+ 5)
         plt.imshow(data["label"].squeeze())
         plt.title("label")
     plt.show()
