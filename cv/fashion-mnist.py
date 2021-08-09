@@ -121,31 +121,32 @@ class _FashionMNIST:
     #             os.system("wget -P " + self.root + " " + res)
 
 
-def FashionMNIST(root, usage="train", sampler=None, transform=None, download=False):
-    """Fashion MNIST Dataset.
-    Args:
-        root (string): Root directory of dataset where ``*-ubyte.gz`` exist.
-        usage (string, optional): If True, creates dataset from training part,
-            otherwise from test part.
-        sampler (SamplerObj, optional): Object used to choose samples from dataset.
-        transform (callable, optional): A function/transform that takes in an image
-            and returns a transformed version. E.g, ``dataset.vision.RandomCrop``
-        download (bool, optional): If true, downloads the dataset from the internet and
-            puts it in root directory. If dataset is already downloaded, it is not
-            downloaded again.
-    """
-    fashion_mnist = _FashionMNIST(root, usage, download)
-    dataset = ds.GeneratorDataset(fashion_mnist, column_names=["image", "label"], num_parallel_workers=4,
-                                  sampler=sampler)
-
-    if transform:
-        if not isinstance(transform, list):
-            transform = [transform]
-        # map only supports image with type uint8 now
-        dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
-        dataset = dataset.map(operations=transform, input_columns="image")
-
-    return dataset
+# 暂时不考虑这一层封装，以后再说
+# def FashionMNIST(root, usage="train", sampler=None, transform=None, download=False):
+#     """Fashion MNIST Dataset.
+#     Args:
+#         root (string): Root directory of dataset where ``*-ubyte.gz`` exist.
+#         usage (string, optional): If True, creates dataset from training part,
+#             otherwise from test part.
+#         sampler (SamplerObj, optional): Object used to choose samples from dataset.
+#         transform (callable, optional): A function/transform that takes in an image
+#             and returns a transformed version. E.g, ``dataset.vision.RandomCrop``
+#         download (bool, optional): If true, downloads the dataset from the internet and
+#             puts it in root directory. If dataset is already downloaded, it is not
+#             downloaded again.
+#     """
+#     fashion_mnist = _FashionMNIST(root, usage, download)
+#     dataset = ds.GeneratorDataset(fashion_mnist, column_names=["image", "label"], num_parallel_workers=4,
+#                                   sampler=sampler)
+#
+#     if transform:
+#         if not isinstance(transform, list):
+#             transform = [transform]
+#         # map only supports image with type uint8 now
+#         dataset = dataset.map(operations=ctrans.TypeCast(mstype.uint8), input_columns="image")
+#         dataset = dataset.map(operations=transform, input_columns="image")
+#
+#     return dataset
 
 
 if __name__ == '__main__':

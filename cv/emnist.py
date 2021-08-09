@@ -57,7 +57,7 @@ resources2 = ['emnist-balanced-mapping.txt',
 class _EMNIST:
     """加载EMIST的辅助类"""
 
-    def __init__(self, root="./dataset/emnist", dataset_name="balanced", is_train=True, download=False):
+    def __init__(self, root, dataset_name="balanced", is_train=True, download=False):
         """
         :param root: 数据集文件所在的目录
         :param dataset_name: EMNIST有6个子数据集，使用此参数来指定训练/测试哪一个，balanced，By_Merge，By_Class，Digits，Letters，MNIST
@@ -201,7 +201,7 @@ if __name__ == '__main__':
     """ 用法示例 """
 
     # 填写数据集的上级目录
-    root = 'E:\MindsporeVision\dataset\emnist'
+    root = r'E:\MindsporeVision\dataset\emnist'
 
     # 实例化
     dataset = _EMNIST(root=root, is_train=False)
