@@ -7,7 +7,7 @@
 且不需要改动任何的代码。
 数据集预览如下所示：
 
-![Fashion-mnist预览](../doc/img/fashion-mnist.png)
+![Fashion-mnist预览](img/fashion-mnist.png)
 
 数据集文件如下所示：
 
