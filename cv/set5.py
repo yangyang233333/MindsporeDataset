@@ -91,7 +91,7 @@ if __name__ == '__main__':
     # 填写数据集的上级目录
     root = r'E:\MindsporeVision\dataset\Set5'
 
-    # 实例化
+    # 实例化，注意图片为HWC、BGR格式，所以训练时候要转化为CHW、RGB格式
     dataset = Set5(root, scale=2, is_train=False)
 
     # 设置一些参数，如shuffle、num_parallel_workers等等
