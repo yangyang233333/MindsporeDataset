@@ -32,10 +32,10 @@ class DIV2K:
         self.check_exist()
 
         # 生成LR数据集 Bicubic
-        # print("正在生成训练集，此过程需要较长时间...大约3-15分钟")
-        # self.hr2lr_train_bicubic()
-        # self.hr2lr_valid_bicubic()
-        # print("训练集生成完毕！")
+        print("正在生成训练集，此过程需要较长时间...大约3-15分钟")
+        self.hr2lr_train_bicubic()
+        self.hr2lr_valid_bicubic()
+        print("训练集生成完毕！")
 
         #
         if is_train:
