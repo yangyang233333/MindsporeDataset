@@ -16,7 +16,11 @@ Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
     + **BSD100**: [介绍](./cv/a.md)、 [代码](./cv/a.py)
     + **Urban100**: [介绍](./cv/a.md)、 [代码](./cv/a.py)
     
-    
-    
+# 使用方法
+找到你需要的数据集，下载/复制对应的md文件和py文件即可。
+
+# 注意
+所有的图像相关数据集加载脚本返回值格式均为HWC、BGR，且为numpy类型，所以训练时需要转为CHW和RGB格式。
+
 # Contributor
 Luoyang, Qianyangyang
