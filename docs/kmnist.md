@@ -3,7 +3,7 @@
 以原始 MNIST 格式和 NumPy 格式提供。由于 MNIST 将我们限制为 10 个类，因此我们在
 创建 KMNIST 时选择了一个字符来代表 10 行平假名中的每一行。数据集预览如下所示：
 
-[KMNIST预览](img/kmnist.png)
+![KMNIST预览](img/kmnist.png)
 <center>KMNIST 的 10 个类别，第一列显示每个角色的现代平假名对应物</center>
 
 2. 使用方法
