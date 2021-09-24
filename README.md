@@ -13,10 +13,10 @@ Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
     + **Set14**: [介绍](docs/set14.md)、 [代码](./cv/set14.py)
     + **DIV2K**: [介绍](docs/div2k.md)、 [代码](./cv/div2k.py)
     + **BSD100**: [介绍](./docs/bsd100.md)、 [代码](./cv/bsd100.py)
+    + **QMNIST**: [介绍](./docs/qmnist.md)、 [代码](./cv/qmnist.py)
 + to-do list
-    
     + **Urban100**: [介绍](./cv/a.md)、 [代码](./cv/a.py)
-    
+
 # 使用方法
 找到你需要的数据集，下载/复制对应的md文件和py文件即可。
 
@@ -25,3 +25,4 @@ Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
 
 # Contributor
 Luoyang, Qianyangyang
+
