@@ -99,7 +99,7 @@ if __name__ == '__main__':
                                   shuffle=True,
                                   column_names=["image", "label"],
                                   num_parallel_workers=1,
-                                  num_samples=None,)
+                                  num_samples=None, )
 
     # 做一些数据增强，如果不需要增强可以把这段代码注释掉
     # 首先把数据集设置为uint8，因为map只支持uint8
