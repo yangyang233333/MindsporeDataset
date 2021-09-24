@@ -12,8 +12,9 @@ Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
     + **Set5**: [介绍](docs/set5.md)、 [代码](./cv/set5.py)
     + **Set14**: [介绍](docs/set14.md)、 [代码](./cv/set14.py)
     + **DIV2K**: [介绍](docs/div2k.md)、 [代码](./cv/div2k.py)
+    + + **BSD100**: [介绍](./docs/bsd100.md)、 [代码](./cv/bsd100.py)
 + to-do list
-    + **BSD100**: [介绍](./cv/a.md)、 [代码](./cv/a.py)
+    
     + **Urban100**: [介绍](./cv/a.md)、 [代码](./cv/a.py)
     
 # 使用方法
