@@ -17,7 +17,10 @@ Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
   + **T91**: [介绍](./docs/t91.md)、 [代码](./cv/t91.py)
   + **City100**: [介绍](./docs/city100.md)、 [代码](./cv/city100.py)
   + **Urban100**: [介绍](./docs/urban100.md)、 [代码](./cv/urban100.py)
+  + **PIRM**: [介绍](./docs/pirm.md)、 [代码](./cv/pirm.py)
 + to-do list
+  + **xxxx**: [介绍](./docs/xxx.md)、 [代码](./cv/xxx.py)
+  + **xxxx**: [介绍](./docs/xxx.md)、 [代码](./cv/xxx.py)
   + **xxxx**: [介绍](./docs/xxx.md)、 [代码](./cv/xxx.py)
     
 # 使用方法
