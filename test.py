@@ -16,15 +16,17 @@ import cv2
 import gzip
 import shutil
 
-root = r'E:\MindsporeVision\dataset\BSD100'
-data = glob.glob(root+r"\image_SRF_2"+r"\*")
+# root = r'E:\MindsporeVision\dataset\BSD100'
+# data = glob.glob(root+r"\image_SRF_2"+r"\*")
+#
+# hr = cv2.imread(data[0])
+# lr = cv2.imread(data[1])
+#
+# h, w, c = hr.shape
+# print(h, w, c)
+#
+# h, w, c = lr.shape
+# print(h, w, c)
 
-hr = cv2.imread(data[0])
-lr = cv2.imread(data[1])
 
-h, w, c = hr.shape
-print(h, w, c)
-
-h, w, c = lr.shape
-print(h, w, c)
-
+os.rename('./test2.py', './test3.py')
