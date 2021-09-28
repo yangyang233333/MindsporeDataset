@@ -6,9 +6,9 @@ This is a repo for MindSpore dataset hub
 
 Tips：Chrome浏览器中使用Ctrl+F可以快速查找数据集.
 
-+ 去雨去燥去模糊
-  + **GoPro Large**: [介绍](./docs/gopro_large.md)、 [代码](./cv/gopro_large.py)
-  + **PKU-RAIN-2017**: [介绍](./docs/raindata.md)、 [代码](./cv/raindata.py)
+  + 去雨去燥去模糊
+    + **GoPro Large**: [介绍](./docs/gopro_large.md)、 [代码](./cv/gopro_large.py)
+    + **PKU-RAIN-2017**: [介绍](./docs/raindata.md)、 [代码](./cv/raindata.py)
   + 人脸识别
     + **LFW**: [介绍](./docs/lfw.md)、 [代码](./cv/lfw.py)
     + **CASIA-WebFace**: [介绍](./docs/webface.md)、 [代码](./cv/webface.py)
